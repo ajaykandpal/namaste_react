@@ -1,0 +1,34 @@
+{
+  "name": "namastereact",
+  "version": "1.0.0",
+  "description": "relearning react",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajaykandpal/namaste_react.git"
+  },
+  "keywords": [
+    "react",
+    "js",
+    "jest"
+  ],
+  "author": "ajay kandpal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajaykandpal/namaste_react/issues"
+  },
+  "homepage": "https://github.com/ajaykandpal/namaste_react#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
