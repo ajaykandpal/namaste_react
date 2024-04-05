@@ -5,6 +5,7 @@ import Shimmer from "./Shimmer";
 const Body = () => {
   //   let restaraunts = restarauntList;
   const [restaraunts, setRestaraunts] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetchdata();
@@ -31,19 +32,36 @@ const Body = () => {
         <input
           className='search-bar'
           placeholder='Search restaraunt or dishes'
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
         ></input>
-        <input type='button' className='search-button'></input>
+        <button
+          className='search-button'
+          onClick={() => {
+            //filter restaraunts based on input and update UI
+            const results = restaraunts.filter((res) =>
+              res.info.name.toLowerCase().includes(searchText.toLowerCase())
+            );
+            if (results.length !== 0) setRestaraunts(results);
+          }}
+        >
+          Search
+        </button>
         <button
           className='filter-btn'
           onClick={() => {
             //filter logic here
             const filteredList = restaraunts.filter(
-              (res) => res.info.avgRating > 4.2
+              (res) =>
+                typeof (res.info.avgRating == Number) &&
+                res.info.avgRating > 4.0
             );
             setRestaraunts(filteredList);
           }}
         >
-          Filter Res More than 4.3 Stars
+          Top Rated Restaraunts
         </button>
       </div>
       <div className='restaraunt-cards'>

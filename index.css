@@ -12,9 +12,14 @@
   display: flex;
   list-style-type: none;
 }
-.nav-items > ul > li {
+.nav-items > ul > * {
   padding: 10px;
   margin: 10px;
+}
+
+.login {
+  cursor: pointer;
+  border-radius: 10px;
 }
 
 .restaraunt {
