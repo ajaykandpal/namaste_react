@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
 import RestarauntCard from "./RestarauntCard";
-import restarauntList from "../utils/mockData";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   //   let restaraunts = restarauntList;
-  const [restaraunts, setRestaraunts] = useState(restarauntList);
+  const [restaraunts, setRestaraunts] = useState([]);
 
   useEffect(() => {
     fetchdata();
@@ -17,10 +16,16 @@ const Body = () => {
     const json = await data.json();
     // console.log(json);
     const newResList =
-      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants;
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants;
     console.log(newResList);
     setRestaraunts(newResList);
   };
+
+  if (restaraunts.length === 0) {
+    // return <h1>Loading....</h1>;
+    return <Shimmer />;
+  }
   return (
     <div className='body'>
       <div className='search'>

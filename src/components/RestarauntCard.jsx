@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import { RES_URL_PREFIX } from "../utils/constants";
 
 const RestarauntCard = ({ resData }) => {
