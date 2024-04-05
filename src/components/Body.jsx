@@ -9,6 +9,7 @@ const Body = () => {
   useEffect(() => {
     fetchdata();
   }, []);
+
   const fetchdata = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.65420&lng=77.23730&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
@@ -22,11 +23,9 @@ const Body = () => {
     setRestaraunts(newResList);
   };
 
-  if (restaraunts.length === 0) {
-    // return <h1>Loading....</h1>;
-    return <Shimmer />;
-  }
-  return (
+  return restaraunts.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className='body'>
       <div className='search'>
         <input
