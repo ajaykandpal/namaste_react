@@ -5,6 +5,7 @@ import Shimmer from "./Shimmer";
 const Body = () => {
   //   let restaraunts = restarauntList;
   const [restaraunts, setRestaraunts] = useState([]);
+  const [filterRestaraunts, setFilterRestaraunts] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const Body = () => {
         ?.restaurants;
     console.log(newResList);
     setRestaraunts(newResList);
+    setFilterRestaraunts(newResList);
   };
 
   return restaraunts.length === 0 ? (
@@ -44,7 +46,7 @@ const Body = () => {
             const results = restaraunts.filter((res) =>
               res.info.name.toLowerCase().includes(searchText.toLowerCase())
             );
-            if (results.length !== 0) setRestaraunts(results);
+            if (results.length !== 0) setFilterRestaraunts(results);
           }}
         >
           Search
@@ -65,7 +67,7 @@ const Body = () => {
         </button>
       </div>
       <div className='restaraunt-cards'>
-        {restaraunts.map((restaraunt) => (
+        {filterRestaraunts.map((restaraunt) => (
           <RestarauntCard key={restaraunt.info.id} resData={restaraunt} />
         ))}
       </div>
