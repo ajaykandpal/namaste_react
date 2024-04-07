@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RestarauntCard from "./RestarauntCard";
+import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
@@ -68,7 +69,12 @@ const Body = () => {
       </div>
       <div className='restaraunt-cards'>
         {filterRestaraunts.map((restaraunt) => (
-          <RestarauntCard key={restaraunt.info.id} resData={restaraunt} />
+          <Link
+            id={restaraunt.info.id}
+            to={"/restaraunts/" + restaraunt.info.id}
+          >
+            <RestarauntCard id={restaraunt.info.id} resData={restaraunt} />
+          </Link>
         ))}
       </div>
     </div>
