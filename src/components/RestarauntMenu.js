@@ -9,7 +9,7 @@ const RestarauntMenu = () => {
   // const [resData, setResData] = useState(null);
 
   const { resId } = useParams();
-  const [showIndex, setShowIndex] = useState(0);
+  const [showIndex, setShowIndex] = useState(1);
 
   //custom hook
   const resData = useRestarauntMenu(resId);
@@ -55,6 +55,7 @@ const RestarauntMenu = () => {
         <RestaurantAccordion
           data={category?.card?.card}
           showItems={index === showIndex ? true : false}
+          setShowIndex={() => setShowIndex(index)}
         />
       ))}
     </div>
