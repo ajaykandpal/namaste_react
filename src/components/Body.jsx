@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import RestarauntCard, { withPromotedLabel } from "./RestarauntCard";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   //   let restaraunts = restarauntList;
@@ -24,7 +25,7 @@ const Body = () => {
     const newResList =
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
-    console.log(newResList);
+    // console.log(newResList);
     setRestaraunts(newResList);
     setFilterRestaraunts(newResList);
   };
@@ -36,6 +37,7 @@ const Body = () => {
     return (
       <h1>Looks like you are offline! Please check your internet connection</h1>
     );
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   return restaraunts.length === 0 ? (
     <Shimmer />
@@ -74,8 +76,16 @@ const Body = () => {
           }}
         >
           Top Rated Restaraunts
-          {console.log(filterRestaraunts[2].info?.aggregatedDiscountInfoV3)}
+          {/* {console.log(filterRestaraunts[2].info?.aggregatedDiscountInfoV3)} */}
         </button>
+        <label>Username: </label>
+        <input
+          className=' m-2 px-2 border border-black'
+          onChange={(e) => {
+            setUserName(e.target.value);
+          }}
+          value={loggedInUser}
+        ></input>
       </div>
       <div className='restaraunt-cards flex flex-wrap'>
         {filterRestaraunts.map((restaraunt) => (
