@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RestarauntCard from "./RestarauntCard";
+import RestarauntCard, { withPromotedLabel } from "./RestarauntCard";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -9,6 +9,7 @@ const Body = () => {
   const [restaraunts, setRestaraunts] = useState([]);
   const [filterRestaraunts, setFilterRestaraunts] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const RestarauntCardPromoted = withPromotedLabel(RestarauntCard);
 
   useEffect(() => {
     fetchdata();
@@ -16,7 +17,7 @@ const Body = () => {
 
   const fetchdata = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.65420&lng=77.23730&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=29.1914882&lng=79.5256144&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
     // console.log(json);
@@ -40,17 +41,16 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className='body'>
-      <div className='search'>
+      <div className='search m-4 p-4'>
         <input
-          className='search-bar'
-          placeholder='Search restaraunt or dishes'
+          className=' border border-solid border-black '
           value={searchText}
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
         ></input>
         <button
-          className='search-button'
+          className='search-button bg-green-100 border border-black m-2 px-4 rounded-lg'
           onClick={() => {
             //filter restaraunts based on input and update UI
             const results = restaraunts.filter((res) =>
@@ -62,7 +62,7 @@ const Body = () => {
           Search
         </button>
         <button
-          className='filter-btn'
+          className='filter-btn  border border-black  px-2 rounded-lg'
           onClick={() => {
             //filter logic here
             const filteredList = restaraunts.filter(
@@ -70,19 +70,30 @@ const Body = () => {
                 typeof (res.info.avgRating == Number) &&
                 res.info.avgRating > 4.0
             );
-            setRestaraunts(filteredList);
+            setFilterRestaraunts(filteredList);
           }}
         >
           Top Rated Restaraunts
+          {console.log(filterRestaraunts[2].info?.aggregatedDiscountInfoV3)}
         </button>
       </div>
-      <div className='restaraunt-cards'>
+      <div className='restaraunt-cards flex flex-wrap'>
         {filterRestaraunts.map((restaraunt) => (
           <Link
             id={restaraunt.info.id}
             to={"/restaraunts/" + restaraunt.info.id}
           >
-            <RestarauntCard id={restaraunt.info.id} resData={restaraunt} />
+            {
+              /* if restaraunt is promoted, add a tag to it */
+              restaraunt?.info?.aggregatedDiscountInfoV3 ? (
+                <RestarauntCardPromoted
+                  id={restaraunt.info.id}
+                  resData={restaraunt}
+                />
+              ) : (
+                <RestarauntCard id={restaraunt.info.id} resData={restaraunt} />
+              )
+            }
           </Link>
         ))}
       </div>
