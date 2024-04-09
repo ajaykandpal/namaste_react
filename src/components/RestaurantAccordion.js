@@ -1,13 +1,22 @@
 import RestarauntAccordionBody from "./RestarauntAccordionBody";
 
-const RestaurantAccordion = ({ data, showItems, setShowIndex }) => {
+const RestaurantAccordion = ({
+  data,
+  showItems,
+  setShowIndex,
+  currentExpanded,
+  currentIndex,
+}) => {
   //   const [showItems, setShowItems] = useState(false);
   const handleClick = () => {
-    setShowIndex();
+    // console.log(currentExpanded, currentIndex);
+    if (currentExpanded === currentIndex) {
+      setShowIndex(null);
+    } else setShowIndex(1);
   };
   return (
     <div>
-      {console.log(data)}
+      {/* {console.log(data)} */}
       {/* header */}
       <div className='w-6/12 mx-auto my-10 bg-gray shadow-lg p-4 '>
         <div
@@ -19,9 +28,9 @@ const RestaurantAccordion = ({ data, showItems, setShowIndex }) => {
           </span>
           <span>🔽🔼</span>
         </div>
+        {/* body */}
         {showItems && <RestarauntAccordionBody items={data.itemCards} />}
       </div>
-      {/* body */}
     </div>
   );
 };
