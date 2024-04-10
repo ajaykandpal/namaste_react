@@ -90,18 +90,18 @@ const Body = () => {
       <div className='restaraunt-cards flex flex-wrap'>
         {filterRestaraunts.map((restaraunt) => (
           <Link
-            id={restaraunt.info.id}
+            key={restaraunt.info.id}
             to={"/restaraunts/" + restaraunt.info.id}
           >
             {
               /* if restaraunt is promoted, add a tag to it */
               restaraunt?.info?.aggregatedDiscountInfoV3 ? (
                 <RestarauntCardPromoted
-                  id={restaraunt.info.id}
+                  key={restaraunt.info.id}
                   resData={restaraunt}
                 />
               ) : (
-                <RestarauntCard id={restaraunt.info.id} resData={restaraunt} />
+                <RestarauntCard key={restaraunt.info.id} resData={restaraunt} />
               )
             }
           </Link>
